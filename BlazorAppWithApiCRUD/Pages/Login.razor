@@ -1,0 +1,67 @@
+﻿@page "/login"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Demo.ApiClient
+@inject AuthenticationService authenticationService
+@inject NavigationManager navigationManager
+@using Demo.ApiClient.Models.ViewModels
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card col-6">
+            <div class="card-header">
+                <h3 class="text-center">Login</h3>
+            </div>
+
+            <div class="card-body">
+                <EditForm Model="@loginModel" OnValidSubmit="HandleLogin">
+                    <DataAnnotationsValidator />
+
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <InputText @bind-Value="loginModel.Username" id="username" class="form-control" />
+                        <ValidationMessage For="@(() => loginModel.Username)" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <InputText @bind-Value="loginModel.Password" id="password" type="password" class="form-control" />
+                        <ValidationMessage For="@(() => loginModel.Password)" />
+                    </div>
+                    <div class="card-footer">
+                        <div class="text-center">
+                            <a href="#">Forgot Password?</a>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+
+                    @if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        <p class="text-danger">@errorMessage</p>
+                    }
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private LoginModel loginModel = new LoginModel();
+    private string? errorMessage;
+
+    private async Task HandleLogin()
+    {
+        var result = await authenticationService.Login(loginModel);
+        if (result != null)
+        {
+            // Login successful
+            errorMessage = null; // Clear any previous error message
+            navigationManager.NavigateTo("/successful");
+        }
+        else
+        {
+            // Login failed
+            errorMessage = "Invalid username or password. Please try again.";
+        }
+    }
+}

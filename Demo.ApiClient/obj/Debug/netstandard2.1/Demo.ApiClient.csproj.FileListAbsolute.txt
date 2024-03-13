@@ -1,0 +1,10 @@
+C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\bin\Debug\netstandard2.1\Demo.ApiClient.deps.json
+C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\bin\Debug\netstandard2.1\Demo.ApiClient.dll
+C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\bin\Debug\netstandard2.1\Demo.ApiClient.pdb
+C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\obj\Debug\netstandard2.1\Demo.ApiClient.csproj.AssemblyReference.cache
+C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\obj\Debug\netstandard2.1\Demo.ApiClient.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\obj\Debug\netstandard2.1\Demo.ApiClient.AssemblyInfoInputs.cache
+C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\obj\Debug\netstandard2.1\Demo.ApiClient.AssemblyInfo.cs
+C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\obj\Debug\netstandard2.1\Demo.ApiClient.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\obj\Debug\netstandard2.1\Demo.ApiClient.dll
+C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\obj\Debug\netstandard2.1\Demo.ApiClient.pdb

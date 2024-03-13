@@ -1,0 +1,258 @@
+﻿@* @page "/"
+@using Demo.ApiClient.Models.ApiModels;
+@using Demo.ApiClient.Models;
+@using Demo.ApiClient;
+@using Demo.ApiClient.IoC;
+@inject DemoApiClientService apiClient;
+
+<h3>Product Management</h3>
+<h4>Add Product</h4>
+<div class="form-group">
+    <label>ProductName:</label>
+    <input class="form-control" @bind="addProductModel.ProductName" />
+</div>
+<div class="form-group">
+    <label>ProductCode:</label>
+    <input class="form-control" @bind="addProductModel.ProductCode" />
+</div>
+<div class="form-group">
+    <label>Price:</label>
+    <input type="number" class="form-control" @bind="addProductModel.Price" />
+</div>
+<button class="btn btn-success" @onclick="AddProduct">Add Product</button>
+
+@if (products == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ProductName</th>
+                <th>ProductCode</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td>@product.ProductName</td>
+                    <td>@product.ProductCode</td>
+                    <td>@product.Price</td>
+                    <td>
+                        <button class="btn btn-primary" @onclick="() => EditProduct(product)">Edit</button>
+                        <button class="btn btn-danger" @onclick="() => DeleteProduct(product.Id)">Delete</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+@code {
+
+    private List<Product>? products;
+    private Product addProductModel = new();
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadProducts();
+    }
+
+    private async Task LoadProducts()
+    {
+        products = await apiClient.GetProducts();
+    }
+
+    private async Task AddProduct()
+    {
+        await apiClient.SaveProduct(addProductModel);
+        await LoadProducts();
+        addProductModel = new Product();
+    }
+    public async Task EditProduct(Product product)
+    {
+        await apiClient.UpdateProduct(product);
+        await LoadProducts();
+    }
+    public async Task DeleteProduct(int id)
+    {
+        await apiClient.DeleteProduct(id);
+        await LoadProducts();
+    }
+}
+
+ *@
+ @page "/"
+@using Demo.ApiClient.Models.ApiModels
+@using Demo.ApiClient.Models
+@using Demo.ApiClient
+@using Demo.ApiClient.IoC
+@inject DemoApiClientService apiClient
+
+<h3>Product Management</h3>
+
+<h4>Add Product</h4>
+<div class="row mb-5 p-3">
+    <div class="col-3">
+        <div class="form-group">
+            <label>ProductName:</label>
+            <input class="form-control" @bind="addProductModel.ProductName" />
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="form-group">
+            <label>ProductCode:</label>
+            <input class="form-control" @bind="addProductModel.ProductCode" />
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="form-group">
+            <label>Price:</label>
+            <input type="number" class="form-control" @bind="addProductModel.Price" />
+        </div>
+    </div>
+    <div class="col-3">
+        <button class="btn btn-success mt-4" @onclick="AddProduct">Add Product</button>
+    </div>
+</div>
+
+
+
+@if (products == null)
+{
+    <p>Loading...</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ProductName</th>
+                <th>ProductCode</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in products)
+            {
+                <tr>
+                    <td>
+                        @if (product.Id == selectedProductId)
+                        {
+                            <input class="form-control" @bind="editedProductName" />
+                        }
+                        else
+                        {
+                            @product.ProductName
+                        }
+                    </td>
+                    <td>
+                        @if (product.Id == selectedProductId)
+                        {
+                            <input class="form-control" @bind="editedProductCode" />
+                        }
+                        else
+                        {
+                            @product.ProductCode
+                        }
+                    </td>
+                    <td>
+                        @if (product.Id == selectedProductId)
+                        {
+                            <input type="number" class="form-control" @bind="editedProductPrice" />
+                        }
+                        else
+                        {
+                            @product.Price
+                        }
+                    </td>
+                    <td>
+                        @if (product.Id == selectedProductId)
+                        {
+                            <button class="btn btn-success" @onclick="() => SaveEdit(product)">Save</button>
+                            <button class="btn btn-secondary" @onclick="CancelEdit">Cancel</button>
+                        }
+                        else
+                        {
+                            <button class="btn btn-primary" @onclick="() => EditProduct(product)">Edit</button>
+                            <button class="btn btn-danger" @onclick="() => DeleteProduct(product.Id)">Delete</button>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Product>? products;
+    private Product addProductModel = new();
+    private int selectedProductId = -1;
+    private string editedProductName = "";
+    private string editedProductCode = "";
+    private decimal editedProductPrice = 0;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadProducts();
+    }
+
+    private async Task LoadProducts()
+    {
+        products = await apiClient.GetProducts();
+    }
+
+    private async Task AddProduct()
+    {
+        await apiClient.SaveProduct(addProductModel);
+        await LoadProducts();
+        addProductModel = new Product();
+    }
+
+    public async Task EditProduct(Product product)
+    {
+        selectedProductId = product.Id;
+        editedProductName = product.ProductName!;
+        editedProductCode = product.ProductCode!;
+        editedProductPrice = product.Price;
+    }
+
+    public async Task SaveEdit(Product product)
+    {
+        product.ProductName = editedProductName;
+        product.ProductCode = editedProductCode;
+        product.Price = editedProductPrice;
+
+        await apiClient.UpdateProduct(product);
+
+        // Reset edit state
+        selectedProductId = -1;
+        editedProductName = "";
+        editedProductCode = "";
+        editedProductPrice = 0;
+
+        await LoadProducts();
+    }
+
+    public async Task CancelEdit()
+    {
+        // Reset edit state
+        selectedProductId = -1;
+        editedProductName = "";
+        editedProductCode = "";
+        editedProductPrice = 0;
+    }
+
+    public async Task DeleteProduct(int id)
+    {
+        await apiClient.DeleteProduct(id);
+        await LoadProducts();
+    }
+}

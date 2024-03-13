@@ -1,0 +1,22 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Demo.ApiClient
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+@inherits LayoutComponentBase
+
+<PageTitle>BlazorAppWithApiCRUD</PageTitle>
+
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4">
+              <AuthButtons/>
+        </div>
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>

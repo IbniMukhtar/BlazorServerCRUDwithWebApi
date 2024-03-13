@@ -1,0 +1,34 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Demo.ApiClient
+@inject AuthenticationService authenticationService
+@inject NavigationManager NavigationManager
+@using Demo.ApiClient.Models.ApiModels
+@using Demo.ApiClient.Models
+@using Demo.ApiClient.IoC
+
+@if (context!.User?.Identity?.IsAuthenticated ?? false)
+{
+    <a href="#" class="btn btn-primary m-2">Logout</a>
+}
+else
+{
+    <button class="btn btn-primary m-2" @onclick="LoginClicked">Login</button>
+    <button class="btn btn-primary m-2" @onclick="RegisterClicked">Register</button>
+}
+
+@code {
+    private AuthenticationState? context;
+
+    protected override async Task OnInitializedAsync()
+    {
+        context = await authenticationService.GetAuthenticationStateAsync();
+    }
+    private void RegisterClicked()
+    {
+        NavigationManager.NavigateTo("/register");
+    }
+    private void LoginClicked()
+    {
+        NavigationManager.NavigateTo("/login"); // Corrected to navigate to the login page
+    }
+}

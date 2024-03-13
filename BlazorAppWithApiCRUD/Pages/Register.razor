@@ -1,0 +1,66 @@
+﻿@page "/register"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Demo.ApiClient
+@inject AuthenticationService authenticationService
+@inject NavigationManager navigationManager
+@using Demo.ApiClient.Models.ViewModels
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="card col-6">
+            <div class="card-header">
+                <h3 class="justify-content-center">Register</h3>
+            </div>
+
+            <div class="card-body">
+                <EditForm Model="@registerModel" OnValidSubmit="HandleRegistration">
+                    <DataAnnotationsValidator />
+
+                    <div class=" row form-group">
+                        <div class="col">
+                            <label for="username">Username</label>
+                            <InputText @bind-Value="registerModel.Username" id="username" class="form-control" />
+                            <ValidationMessage For="@(() => registerModel.Username)" />
+                        </div>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="col justify-content-center">
+                            <label for="password">Password</label>
+                            <InputText @bind-Value="registerModel.Password" id="password" type="password" class="form-control" />
+                            <ValidationMessage For="@(() => registerModel.Password)" />
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Register</button>
+
+                    @if (!string.IsNullOrEmpty(errorMessage))
+                    {
+                        <p class="text-danger">@errorMessage</p>
+                    }
+                </EditForm>
+            </div>
+        </div>
+    </div>
+</div>
+
+   
+
+
+@code {
+    private RegisterModel registerModel = new RegisterModel();
+    private string errorMessage;
+
+    private async Task HandleRegistration()
+    {
+        var result = await authenticationService.Register(registerModel);
+        if (result != null)
+        {
+            navigationManager.NavigateTo("/login");
+        }
+        else
+        {
+            errorMessage = "Registration failed. Please try again.";
+        }
+    }
+}

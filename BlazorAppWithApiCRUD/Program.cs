@@ -1,10 +1,6 @@
 using Demo.ApiClient;
 using Demo.ApiClient.IoC;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
+using Radzen;
 using System;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,8 +14,18 @@ builder.Services.AddDemoApiClientService(x => x.ApiBaseAddress = builder.Configu
 // Register HttpClient and configure it
 builder.Services.AddHttpClient<AuthenticationService>(client =>
 {
-    client.BaseAddress = new Uri(builder.Configuration.GetValue<string>("ApiBaseAddress"));
+    string? apiBaseAddress = builder.Configuration.GetValue<string>("ApiBaseAddress");
+    if (apiBaseAddress != null)
+    {
+        client.BaseAddress = new Uri(apiBaseAddress);
+    }
+    else
+    {
+        throw new InvalidOperationException("API base address is not configured.");
+    }
 });
+
+builder.Services.AddRadzenComponents();
 
 var app = builder.Build();
 

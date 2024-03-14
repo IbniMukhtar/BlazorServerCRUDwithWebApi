@@ -129,6 +129,7 @@ C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Api\Demo.api\obj\Debug\
 C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Api\Demo.api\obj\Debug\net8.0\Demo.api.csproj.CoreCompileInputs.cache
 C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Api\Demo.api\obj\Debug\net8.0\Demo.api.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Api\Demo.api\obj\Debug\net8.0\Demo.api.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Api\Demo.api\obj\Debug\net8.0\Demo.api.sourcelink.json
 C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Api\Demo.api\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Api\Demo.api\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Api\Demo.api\obj\Debug\net8.0\staticwebassets\msbuild.Demo.api.Microsoft.AspNetCore.StaticWebAssets.props

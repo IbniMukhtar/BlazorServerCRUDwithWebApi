@@ -1,4 +1,4 @@
-﻿@page "/login"
+﻿@page "/"
 @using Microsoft.AspNetCore.Components.Authorization
 @using Demo.ApiClient
 @inject AuthenticationService authenticationService
@@ -45,7 +45,7 @@
     </div>
 </div>
 
-@code {
+ @code {
     private LoginModel loginModel = new LoginModel();
     private string? errorMessage;
 
@@ -64,4 +64,4 @@
             errorMessage = "Invalid username or password. Please try again.";
         }
     }
-}
+} 

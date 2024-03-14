@@ -6,5 +6,6 @@ C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\obj\Debu
 C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\obj\Debug\netstandard2.1\Demo.ApiClient.AssemblyInfoInputs.cache
 C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\obj\Debug\netstandard2.1\Demo.ApiClient.AssemblyInfo.cs
 C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\obj\Debug\netstandard2.1\Demo.ApiClient.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\obj\Debug\netstandard2.1\Demo.ApiClient.sourcelink.json
 C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\obj\Debug\netstandard2.1\Demo.ApiClient.dll
 C:\Users\Administrator\source\repos\DemoWebApiWithBlazor\Demo.ApiClient\obj\Debug\netstandard2.1\Demo.ApiClient.pdb

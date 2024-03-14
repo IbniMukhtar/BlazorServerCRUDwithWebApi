@@ -72,6 +72,21 @@ namespace Demo.ApiClient
                 return null;
             }
         }
+        public async Task<bool> Logout()
+        {
+            var response = await _httpClient.PostAsync("/api/Auth/logout", null);
+            if (response.IsSuccessStatusCode)
+            {
+                // Clear authentication information from the client-side
+                // (if necessary, you might need to clear any user-related data stored locally)
+                return true; // Logout successful
+            }
+            else
+            {
+                // Handle logout failure (e.g., log an error, return false)
+                return false; // Logout failed
+            }
+        }
 
 
         public void Dispose()

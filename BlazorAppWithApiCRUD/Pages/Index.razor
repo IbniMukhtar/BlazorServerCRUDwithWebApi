@@ -1,94 +1,5 @@
-﻿@* @page "/"
-@using Demo.ApiClient.Models.ApiModels;
-@using Demo.ApiClient.Models;
-@using Demo.ApiClient;
-@using Demo.ApiClient.IoC;
-@inject DemoApiClientService apiClient;
-
-<h3>Product Management</h3>
-<h4>Add Product</h4>
-<div class="form-group">
-    <label>ProductName:</label>
-    <input class="form-control" @bind="addProductModel.ProductName" />
-</div>
-<div class="form-group">
-    <label>ProductCode:</label>
-    <input class="form-control" @bind="addProductModel.ProductCode" />
-</div>
-<div class="form-group">
-    <label>Price:</label>
-    <input type="number" class="form-control" @bind="addProductModel.Price" />
-</div>
-<button class="btn btn-success" @onclick="AddProduct">Add Product</button>
-
-@if (products == null)
-{
-    <p>Loading...</p>
-}
-else
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>ProductName</th>
-                <th>ProductCode</th>
-                <th>Price</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in products)
-            {
-                <tr>
-                    <td>@product.ProductName</td>
-                    <td>@product.ProductCode</td>
-                    <td>@product.Price</td>
-                    <td>
-                        <button class="btn btn-primary" @onclick="() => EditProduct(product)">Edit</button>
-                        <button class="btn btn-danger" @onclick="() => DeleteProduct(product.Id)">Delete</button>
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
-}
-
-
-
-@code {
-
-    private List<Product>? products;
-    private Product addProductModel = new();
-    protected override async Task OnInitializedAsync()
-    {
-        await LoadProducts();
-    }
-
-    private async Task LoadProducts()
-    {
-        products = await apiClient.GetProducts();
-    }
-
-    private async Task AddProduct()
-    {
-        await apiClient.SaveProduct(addProductModel);
-        await LoadProducts();
-        addProductModel = new Product();
-    }
-    public async Task EditProduct(Product product)
-    {
-        await apiClient.UpdateProduct(product);
-        await LoadProducts();
-    }
-    public async Task DeleteProduct(int id)
-    {
-        await apiClient.DeleteProduct(id);
-        await LoadProducts();
-    }
-}
-
- *@
- @page "/"
+﻿ @page "/dindex"
+ @layout EmptyLayout
 @using Demo.ApiClient.Models.ApiModels
 @using Demo.ApiClient.Models
 @using Demo.ApiClient
@@ -222,6 +133,7 @@ else
         editedProductName = product.ProductName!;
         editedProductCode = product.ProductCode!;
         editedProductPrice = product.Price;
+        
     }
 
     public async Task SaveEdit(Product product)

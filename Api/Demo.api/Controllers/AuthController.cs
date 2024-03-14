@@ -68,6 +68,13 @@ namespace Demo.api.Controllers
             }
             return BadRequest(new { Message = "Invalid username or password" });
         }
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return Ok(new { Message = "Logout successful" });
+        }
+
 
     }
 }

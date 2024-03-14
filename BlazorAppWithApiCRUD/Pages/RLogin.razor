@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Demo.ApiClient
+@inject AuthenticationService authenticationService
+@inject NavigationManager navigationManager
+@using Demo.ApiClient.Models.ViewModels
+
+<RadzenCard class="rz-my-12 rz-mx-auto rz-p-4 rz-p-md-12" style="max-width: 600px;">
+    <RadzenTemplateForm Data="@loginModel" Submit="@((LoginModel model) => HandleLogin(model))">
+        <RadzenLogin AllowRememberMe="true" AllowResetPassword="true" FormFieldVariant="Variant.Filled" />
+    </RadzenTemplateForm>
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <div class="alert alert-danger">@errorMessage</div>
+    }
+</RadzenCard>
+
+@code {
+    private LoginModel loginModel = new LoginModel();
+    private string? errorMessage;
+
+    private async Task HandleLogin(LoginModel model)
+    {
+        var result = await authenticationService.Login(model);
+        if (result != null)
+        {
+            // Login successful
+            errorMessage = null; // Clear any previous error message
+            navigationManager.NavigateTo("/successful");
+        }
+        else
+        {
+            // Login failed
+            errorMessage = "Invalid username or password. Please try again.";
+        }
+    }
+
+}
+
+
+ 
